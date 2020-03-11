@@ -1,0 +1,36 @@
+pipeline {
+   agent any
+   tools {
+		nodejs "nodejs"
+   }
+   stages {
+		stage('Prepare'){
+			steps{
+				echo 'Preparing'
+				sh'''
+					npm install
+					npm audit fix --force
+					npm rebuild node-sass
+			
+				'''
+			}
+		}
+		stage('Build'){
+			steps{
+				echo 'Building'
+				sh'''
+					npm run build
+				'''
+			}
+		}
+		stage('Deploy'){
+			steps{
+				echo 'Deploying'
+				sh'''
+					rm -rf /usr/local/tomcat/apache-tomcat-8.5.51/webapps/dist
+					mv -f dist /usr/local/tomcat/apache-tomcat-8.5.51/webapps
+				'''
+			}
+		}
+   }
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="oasis.data.mapping.MappingMapper">
+
+    <select id="getKeyWordsIdList" resultType="java.lang.Integer">
+        select distinct keyword_id
+        from article_to_keyword atk
+        where atk.doc_id = #{docId};
+    </select>
+
+    <select id="getAuthorsIdList" resultType="java.lang.Integer">
+        select distinct atau.author_id
+        from article_to_author atau
+        where atau.doc_id = #{docId};
+    </select>
+
+    <select id="getAffiliationIdList" resultType="java.lang.Integer">
+        select distinct affiliation_id
+        from article_to_affiliation ataf
+        where ataf.doc_id = #{docId};
+    </select>
+
+    <select id="getArtIdByAuthorId" resultType="java.lang.Integer">
+        select distinct doc_id
+        from article_to_author atau
+        where atau.author_id = #{authorId};
+    </select>
+
+    <select id="getArtIdByAffiliationId" resultType="java.lang.Integer">
+        select doc_id
+        from article_to_affiliation ataf
+        where ataf.affiliation_id = #{affiliationId};
+    </select>
+
+    <select id="getKeyWordById" resultType="string">
+        select keyword
+        from keyword_info kInfo
+        where kInfo.keyword_id = #{keyWordId};
+    </select>
+
+    <select id="getAuthorById" resultType="string">
+        select author_name
+        from author_info auInfo
+        where auInfo.author_id = #{authorId};
+    </select>
+
+    <select id="getAffiliationById" resultType="string">
+        select affiliation_name
+        from affiliation_info afInfo
+        where afInfo.affiliation_id = #{affiliationId};
+    </select>
+
+    <select id="getPublicationTitleById" resultType="string">
+        select publication_title
+        from publication_info pInfo
+        where pInfo.publication_id = #{publicationId};
+    </select>
+
+    <select id="getPublicationYearById" resultType="string">
+        select publication_year
+        from publication_info pInfo
+        where pInfo.publication_id = #{publicationId};
+    </select>
+
+</mapper>
